@@ -1,13 +1,32 @@
 <template>
-  <HelloWorld />
+  <v-container>
+    <v-layout wrap justify-center text-xs-center>
+      <v-flex xs12>
+        <div class="headline font-weight-light">
+          <p>Everything runs in your browser. We do not send your in/outputs to our servers. 😎</p>
+        </div>
+      </v-flex>
+      <v-flex xs12>
+        <v-container grid-list-xl>
+          <v-layout wrap>
+            <v-flex xs12 sm6 md4 v-for="app in this.$root.apps" :key="app.name">
+              <v-hover>
+                <v-card
+                  slot-scope="{ hover }"
+                  :class="`elevation-${hover ? 5 : 2}`"
+                  :to="app.url"
+                  ripple
+                >
+                  <v-card-text class="py-5">
+                    <div class="headline">{{ app.name }}</div>
+                    <v-subheader>{{ app.description }}</v-subheader>
+                  </v-card-text>
+                </v-card>
+              </v-hover>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
-
-<script>
-  import HelloWorld from '../components/HelloWorld'
-
-  export default {
-    components: {
-      HelloWorld
-    }
-  }
-</script>
