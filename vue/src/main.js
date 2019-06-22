@@ -7,9 +7,9 @@ Vue.config.productionTip = false;
 
 const apps = [
   {
-    name: "JSON for Human",
-    description: "Convert the JSON into human readable format.",
-    url: "/apps/json-for-human"
+    name: "Data Converter",
+    description: "Convert the data into a desirable format.",
+    url: "/apps/data-converter"
   }
 ];
 
@@ -17,6 +17,7 @@ new Vue({
   router,
   render: h => h(App),
   data: {
+    currentApp: null,
     apps
   }
 }).$mount("#app");

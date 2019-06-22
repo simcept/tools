@@ -5,7 +5,12 @@
         <span>Simple</span>
         <span class="font-weight-light">Tools</span>
       </router-link>
-      <!-- <span class="font-weight-light"> / JSON Formatter</span> -->
+      <span
+        class="font-weight-light hidden-sm-and-down"
+        v-if="this.$root.currentApp"
+      >
+        &nbsp;/ {{ this.$root.currentApp }}
+      </span>
     </v-toolbar-title>
     <v-spacer />
 

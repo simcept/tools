@@ -21,9 +21,9 @@ export default new Router({
 
     // Applications
     {
-      path: "/apps/json-for-human",
-      name: "JSON for Human",
-      component: () => import("./views/apps/JsonForHuman.vue")
+      path: "/apps/data-converter",
+      name: "Data Converter",
+      component: () => import("./views/apps/DataConverter.vue")
     }
   ]
 });
