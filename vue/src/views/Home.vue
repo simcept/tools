@@ -13,7 +13,7 @@
               <v-hover>
                 <v-card
                   slot-scope="{ hover }"
-                  :class="`elevation-${hover ? 5 : 2}`"
+                  :class="`app-card elevation-${hover ? 5 : 2}`"
                   :to="app.url"
                   ripple
                 >
@@ -30,3 +30,11 @@
     </v-layout>
   </v-container>
 </template>
+
+<style>
+  @media (min-width: 600px) {
+    .app-card {
+      min-height: 190px;
+    }
+  }
+</style>
