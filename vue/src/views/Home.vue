@@ -19,7 +19,7 @@
                 >
                   <v-card-text class="py-5">
                     <div class="headline">{{ app.name }}</div>
-                    <v-subheader>{{ app.description }}</v-subheader>
+                    <div class="mt-3 text-xs-center" style="color: #999;">{{ app.description }}</div>
                   </v-card-text>
                 </v-card>
               </v-hover>

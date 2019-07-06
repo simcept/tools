@@ -23,6 +23,11 @@ export default new Router({
       path: "/apps/data-converter",
       name: "Data Converter",
       component: () => import("./views/apps/DataConverter.vue")
+    },
+    {
+      path: "/apps/password-generator",
+      name: "Password Generator",
+      component: () => import("./views/apps/PasswordGenerator.vue")
     }
   ]
 });
