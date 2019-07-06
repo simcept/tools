@@ -36,7 +36,7 @@
                       hide-details
                       placeholder="Put your data here"
                       :rows="$vuetify.breakpoint.mdAndUp ? 16 : $vuetify.breakpoint.sm ? 12 : 8"
-                      @input="updateinputData"
+                      @input="updateInputData"
                     />
                   </div>
                 </v-flex>
@@ -223,7 +223,7 @@
     },
 
     methods: {
-      updateinputData(content) {
+      updateInputData(content) {
         this.inputDataContent = content
 
         let _inputDataType
@@ -251,9 +251,7 @@
         if (_processor) {
           try {
             this.outputDataContent = _processor(this.inputDataType, this.inputDataContent)
-            console.log('aaa')
             this.$vuetify.goTo('#output')
-            console.log('bbb')
           } catch (e) {
             this.hint = e.message
             this.showHint = true
