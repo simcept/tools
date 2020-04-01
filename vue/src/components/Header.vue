@@ -14,10 +14,7 @@
     </v-toolbar-title>
     <v-spacer />
 
-    <v-menu
-      offset-y
-      transition="slide-y-transition"
-    >
+    <v-menu offset-y transition="slide-y-transition">
       <template v-slot:activator="{ on }">
         <v-btn icon v-on="on">
           <v-icon>apps</v-icon>
@@ -43,16 +40,28 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        items: [
-          { title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
-          { title: 'Travis Howard', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
-          { title: 'Ali Connors', avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg' },
-          { title: 'Cindy Baker', avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg' },
-        ],
-      }
+export default {
+  data() {
+    return {
+      items: [
+        {
+          title: 'Jason Oner',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
+        },
+        {
+          title: 'Travis Howard',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg'
+        },
+        {
+          title: 'Ali Connors',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg'
+        },
+        {
+          title: 'Cindy Baker',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg'
+        }
+      ]
     }
   }
+}
 </script>
