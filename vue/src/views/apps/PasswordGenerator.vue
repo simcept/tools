@@ -1,30 +1,25 @@
 <template>
-  <v-container
-    id="apps--password-generator"
-    fill-height
-  >
+  <v-container id="apps--password-generator" fill-height>
     <v-layout align-center justify-center>
       <v-flex xs12 sm10 md8 lg6>
         <v-card>
-          <v-card
-            id="output"
-            color="secondary"
-            tile
-            flat
-            dark
-          >
+          <v-card id="output" color="secondary" tile flat dark>
             <v-card-text class="px-5">
               <div style="position: relative; padding-right: 95px;">
                 <v-text-field
                   id="output-password"
                   readonly
-                  dark flat
+                  dark
+                  flat
                   height="50"
                   color="#fff"
                   v-model="outputPassword"
                 />
                 <v-btn
-                  flat icon large dark
+                  flat
+                  icon
+                  large
+                  dark
                   style="position: absolute; top: 10px; right: 35px;"
                   @click="generatePassword"
                 >
@@ -32,7 +27,10 @@
                 </v-btn>
                 <v-btn
                   id="copy-password"
-                  flat icon large dark
+                  flat
+                  icon
+                  large
+                  dark
                   style="position: absolute; top: 10px; right: -15px;"
                   data-clipboard-target="#output-password"
                 >
@@ -104,75 +102,77 @@
 </template>
 
 <style>
-  #output input {
-    max-height: none;
-    font-size: 30px;
-    font-family: Ubuntu Mono,Menlo,Monaco,Consolas,Courier New,monospace;
-  }
+#output input {
+  max-height: none;
+  font-size: 30px;
+  font-family: Ubuntu Mono, Menlo, Monaco, Consolas, Courier New, monospace;
+}
 
-  @media (min-width: 600px) {
-  }
+@media (min-width: 600px) {
+}
 </style>
 
 <script>
-  import ClipboardJS from 'clipboard'
+import ClipboardJS from 'clipboard'
 
-  const charsets = {
-    uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    lowercase: 'abcdefghijklmnopqrstuvwxyz',
-    numbers: '0123456789',
-    symbols: '`-=~!@#$%^&*()_+'
-  }
+const charsets = {
+  uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  lowercase: 'abcdefghijklmnopqrstuvwxyz',
+  numbers: '0123456789',
+  symbols: '`-=~!@#$%^&*()_+'
+}
 
-  const defaultInputs = {
-    passwordLength: 20,
-    passwordCharsetTypes: Object.keys(charsets)
-  }
+const defaultInputs = {
+  passwordLength: 20,
+  passwordCharsetTypes: Object.keys(charsets)
+}
 
-  function secureRandom(max) {
-    const n = crypto.getRandomValues(new Uint32Array(1))[0] / (2**32 - 1)
-    return Math.floor(n * max)
-  }
+function secureRandom(max) {
+  const n = crypto.getRandomValues(new Uint32Array(1))[0] / (2 ** 32 - 1)
+  return Math.floor(n * max)
+}
 
-  export default {
-    mounted() {
-      this.$root.currentApp = 'Password Generator'
-      this.generatePassword()
+export default {
+  mounted() {
+    this.$root.currentApp = 'Password Generator'
+    this.generatePassword()
 
-      new ClipboardJS('#copy-password')
-    },
+    new ClipboardJS('#copy-password')
+  },
 
-    beforeRouteLeave(to, from, next) {
-      this.$root.currentApp = null
-      next()
-    },
+  beforeRouteLeave(to, from, next) {
+    this.$root.currentApp = null
+    next()
+  },
 
-    data() {
-      return {
-        inputPasswordLength: defaultInputs.passwordLength,
-        inputPasswordCharsetTypes: defaultInputs.passwordCharsetTypes,
-        outputPassword: ''
+  data() {
+    return {
+      inputPasswordLength: defaultInputs.passwordLength,
+      inputPasswordCharsetTypes: defaultInputs.passwordCharsetTypes,
+      outputPassword: ''
+    }
+  },
+
+  methods: {
+    generatePassword: function() {
+      const passwordLength =
+        this.inputPasswordLength || defaultInputs.passwordLength
+      const passwordCharsetTypes =
+        this.inputPasswordCharsetTypes || defaultInputs.passwordCharsetTypes
+
+      let charset = ''
+      for (const type of passwordCharsetTypes) {
+        charset += charsets[type]
       }
-    },
 
-    methods: {
-      generatePassword: function() {
-        const passwordLength = this.inputPasswordLength || defaultInputs.passwordLength
-        const passwordCharsetTypes = this.inputPasswordCharsetTypes || defaultInputs.passwordCharsetTypes
+      let result = ''
+      for (let i = 0; i < passwordLength; i++) {
+        const n = secureRandom(charset.length)
+        result += charset.charAt(n)
+      }
 
-        let charset = ''
-        for (const type of passwordCharsetTypes) {
-          charset += charsets[type]
-        }
-
-        let result = ''
-        for (let i = 0; i < passwordLength; i++) {
-          const n = secureRandom(charset.length)
-          result += charset.charAt(n)
-        }
-
-        this.outputPassword = result
-      },
-    },
+      this.outputPassword = result
+    }
   }
+}
 </script>

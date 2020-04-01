@@ -1,15 +1,12 @@
 <template>
-  <v-container
-    id="apps--data-converter"
-    class="pa-0"
-    fluid
-  >
+  <v-container id="apps--data-converter" class="pa-0" fluid>
     <v-snackbar
       v-model="showHint"
       color="#f5f5f5"
       :timeout="4000"
       light
-      top right
+      top
+      right
     >
       <span class="pink--text">{{ hint }}</span>
     </v-snackbar>
@@ -35,7 +32,13 @@
                       solo
                       hide-details
                       placeholder="Put your data here"
-                      :rows="$vuetify.breakpoint.mdAndUp ? 16 : $vuetify.breakpoint.sm ? 12 : 8"
+                      :rows="
+                        $vuetify.breakpoint.mdAndUp
+                          ? 16
+                          : $vuetify.breakpoint.sm
+                          ? 12
+                          : 8
+                      "
                       @input="updateInputData"
                     />
                   </div>
@@ -77,7 +80,13 @@
                       readonly
                       solo
                       hide-details
-                      :rows="$vuetify.breakpoint.mdAndUp ? 16 : $vuetify.breakpoint.sm ? 12 : 8"
+                      :rows="
+                        $vuetify.breakpoint.mdAndUp
+                          ? 16
+                          : $vuetify.breakpoint.sm
+                          ? 12
+                          : 8
+                      "
                       :value="outputDataContent"
                     />
                   </div>
@@ -92,172 +101,175 @@
 </template>
 
 <style>
-  .code textarea {
-    font-family: Ubuntu Mono,Menlo,Monaco,Consolas,Courier New,monospace;
-  }
+.code textarea {
+  font-family: Ubuntu Mono, Menlo, Monaco, Consolas, Courier New, monospace;
+}
 
+#input-buttons {
+  display: block;
+  border-radius: 2px;
+  background-color: #f5f5f5;
+}
+#input-buttons button {
+  margin: 0;
+  width: 100%;
+  border-radius: 0;
+}
+#input-buttons button:not(:last-child) {
+  border-bottom: 1px #ccc solid;
+}
+
+@media (min-width: 600px) {
   #input-buttons {
-    display: block;
-    border-radius: 2px;
-    background-color: #f5f5f5;
+    display: inline-block;
   }
   #input-buttons button {
-    margin: 0;
-    width: 100%;
-    border-radius: 0;
+    width: auto;
   }
   #input-buttons button:not(:last-child) {
-    border-bottom: 1px #ccc solid;
+    border-bottom: none;
+    border-right: 1px #ccc solid;
   }
-
-  @media (min-width: 600px) {
-    #input-buttons {
-      display: inline-block;
-    }
-    #input-buttons button {
-      width: auto;
-    }
-    #input-buttons button:not(:last-child) {
-      border-bottom: none;
-      border-right: 1px #ccc solid;
-    }
-  }
+}
 </style>
 
 <script>
-  import yaml from 'js-yaml'
+import yaml from 'js-yaml'
 
-  const _inputButtons = {
-    none: [
-      {
-        title: 'Pending',
-        click: '',
-      },
-    ],
-    json: [
-      {
-        title: 'Beautify',
-        click: 'beautify',
-      },
-      {
-        title: 'Minify',
-        click: 'minify',
-      },
-      {
-        title: 'Convert to YAML',
-        click: 'convert',
-      },
-    ],
-    yaml: [
-      {
-        title: 'Convert to JSON',
-        click: 'convert',
-      },
-    ]
-  }
-
-  const _processData = {
-    beautify(type, content) {
-      try {
-        if (type === 'json') {
-          return JSON.stringify(JSON.parse(content), null, 2)
-        }
-      } catch (e) {
-        console.warn(e.stack)
-        throw new Error(`Invalid ${type.toUpperCase()}`)
-      }
-    },
-
-    minify(type, content) {
-      try {
-        if (type === 'json') {
-          return JSON.stringify(JSON.parse(content))
-        }
-      } catch (e) {
-        console.warn(e.stack)
-        throw new Error(`Invalid ${type.toUpperCase()}`)
-      }
-    },
-
-    convert(type, content) {
-      try {
-        if (type === 'json') {
-          return yaml.safeDump(JSON.parse(content))
-        }
-        if (type === 'yaml') {
-          return JSON.stringify(yaml.safeLoad(content), null, 2)
-        }
-      } catch (e) {
-        console.warn(e.stack)
-        throw new Error(`Invalid ${type.toUpperCase()}`)
-      }
-    },
-  }
-
-  function _couldBeJSON(val) {
-    if (!val || typeof val !== 'string') {
-      return false
+const _inputButtons = {
+  none: [
+    {
+      title: 'Pending',
+      click: ''
     }
-    return val[0] === '{' || val[0] === '['
+  ],
+  json: [
+    {
+      title: 'Beautify',
+      click: 'beautify'
+    },
+    {
+      title: 'Minify',
+      click: 'minify'
+    },
+    {
+      title: 'Convert to YAML',
+      click: 'convert'
+    }
+  ],
+  yaml: [
+    {
+      title: 'Convert to JSON',
+      click: 'convert'
+    }
+  ]
+}
+
+const _processData = {
+  beautify(type, content) {
+    try {
+      if (type === 'json') {
+        return JSON.stringify(JSON.parse(content), null, 2)
+      }
+    } catch (e) {
+      console.warn(e.stack)
+      throw new Error(`Invalid ${type.toUpperCase()}`)
+    }
+  },
+
+  minify(type, content) {
+    try {
+      if (type === 'json') {
+        return JSON.stringify(JSON.parse(content))
+      }
+    } catch (e) {
+      console.warn(e.stack)
+      throw new Error(`Invalid ${type.toUpperCase()}`)
+    }
+  },
+
+  convert(type, content) {
+    try {
+      if (type === 'json') {
+        return yaml.safeDump(JSON.parse(content))
+      }
+      if (type === 'yaml') {
+        return JSON.stringify(yaml.safeLoad(content), null, 2)
+      }
+    } catch (e) {
+      console.warn(e.stack)
+      throw new Error(`Invalid ${type.toUpperCase()}`)
+    }
   }
+}
 
-  export default {
-    mounted() {
-      this.$root.currentApp = 'Data Converter'
-    },
+function _couldBeJSON(val) {
+  if (!val || typeof val !== 'string') {
+    return false
+  }
+  return val[0] === '{' || val[0] === '['
+}
 
-    beforeRouteLeave(to, from, next) {
-      this.$root.currentApp = null
-      next()
-    },
+export default {
+  mounted() {
+    this.$root.currentApp = 'Data Converter'
+  },
 
-    data() {
-      return {
-        showHint: false,
-        hint: '',
-        inputDataType: 'none',
-        inputDataContent: '',
-        inputButtons: _inputButtons.none,
-        outputDataContent: 'Put your data into the above text box 👆🏽',
+  beforeRouteLeave(to, from, next) {
+    this.$root.currentApp = null
+    next()
+  },
+
+  data() {
+    return {
+      showHint: false,
+      hint: '',
+      inputDataType: 'none',
+      inputDataContent: '',
+      inputButtons: _inputButtons.none,
+      outputDataContent: 'Put your data into the above text box 👆🏽'
+    }
+  },
+
+  methods: {
+    updateInputData(content) {
+      this.inputDataContent = content
+
+      let _inputDataType
+      if (!content.length) {
+        _inputDataType = 'none'
+      } else if (_couldBeJSON(content)) {
+        _inputDataType = 'json'
+      } else {
+        _inputDataType = 'yaml'
+      }
+
+      if (this.inputDataType !== _inputDataType) {
+        this.showHint = false
+        if (_inputDataType !== 'none') {
+          this.hint = `Your data is detected to be ${_inputDataType.toUpperCase()}.`
+          this.showHint = true
+        }
+        this.inputDataType = _inputDataType
+        this.inputButtons = _inputButtons[_inputDataType]
       }
     },
 
-    methods: {
-      updateInputData(content) {
-        this.inputDataContent = content
-
-        let _inputDataType
-        if (!content.length) {
-          _inputDataType = 'none'
-        } else if (_couldBeJSON(content)) {
-          _inputDataType = 'json'
-        } else {
-          _inputDataType = 'yaml'
+    processData(action) {
+      const _processor = _processData[action]
+      if (_processor) {
+        try {
+          this.outputDataContent = _processor(
+            this.inputDataType,
+            this.inputDataContent
+          )
+          this.$vuetify.goTo('#output')
+        } catch (e) {
+          this.hint = e.message
+          this.showHint = true
         }
-
-        if (this.inputDataType !== _inputDataType) {
-          this.showHint = false
-          if (_inputDataType !== 'none') {
-            this.hint = `Your data is detected to be ${_inputDataType.toUpperCase()}.`
-            this.showHint = true
-          }
-          this.inputDataType = _inputDataType
-          this.inputButtons = _inputButtons[_inputDataType]
-        }
-      },
-
-      processData(action) {
-        const _processor = _processData[action]
-        if (_processor) {
-          try {
-            this.outputDataContent = _processor(this.inputDataType, this.inputDataContent)
-            this.$vuetify.goTo('#output')
-          } catch (e) {
-            this.hint = e.message
-            this.showHint = true
-          }
-        }
-      },
-    },
+      }
+    }
   }
+}
 </script>
