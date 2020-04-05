@@ -7,9 +7,9 @@
       </router-link>
       <span
         class="font-weight-light hidden-sm-and-down"
-        v-if="this.$root.currentApp"
+        v-if="this.$route.meta.title"
       >
-        &nbsp;/ {{ this.$root.currentApp }}
+        / {{ this.$route.meta.title }}
       </span>
     </v-toolbar-title>
     <v-spacer />
@@ -24,7 +24,7 @@
         <v-list-tile
           v-for="app in this.$root.apps"
           :key="app.name"
-          :to="app.url"
+          :to="app.path"
         >
           <v-list-tile-content>
             <v-list-tile-title v-text="app.name"></v-list-tile-title>

@@ -211,15 +211,6 @@ function _couldBeJSON(val) {
 }
 
 export default {
-  mounted() {
-    this.$root.currentApp = 'Data Converter'
-  },
-
-  beforeRouteLeave(to, from, next) {
-    this.$root.currentApp = null
-    next()
-  },
-
   data() {
     return {
       showHint: false,

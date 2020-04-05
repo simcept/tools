@@ -17,13 +17,13 @@
                 <v-card
                   slot-scope="{ hover }"
                   :class="`app-card elevation-${hover ? 5 : 2}`"
-                  :to="app.url"
+                  :to="app.path"
                   ripple
                 >
                   <v-card-text class="py-5">
                     <div class="headline">{{ app.name }}</div>
                     <div class="mt-3 text-xs-center" style="color: #999;">
-                      {{ app.description }}
+                      {{ app.meta.description }}
                     </div>
                   </v-card-text>
                 </v-card>
