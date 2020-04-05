@@ -16,5 +16,14 @@ export default [
       title: 'Password Generator',
       description: 'Generate a random password.'
     }
+  },
+  {
+    name: 'Pastebin',
+    path: '/apps/pastebin',
+    component: () => import('../views/apps/Pastebin.vue'),
+    meta: {
+      title: 'Pastebin',
+      description: 'Retrieve your message anywhere.'
+    }
   }
 ]
