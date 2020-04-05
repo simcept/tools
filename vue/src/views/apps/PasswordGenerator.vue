@@ -134,15 +134,8 @@ function secureRandom(max) {
 
 export default {
   mounted() {
-    this.$root.currentApp = 'Password Generator'
     this.generatePassword()
-
     new ClipboardJS('#copy-password')
-  },
-
-  beforeRouteLeave(to, from, next) {
-    this.$root.currentApp = null
-    next()
   },
 
   data() {
