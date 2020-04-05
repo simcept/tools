@@ -4,8 +4,8 @@
       <v-flex xs12>
         <div class="headline font-weight-light">
           <p>
-            Everything runs in your browser. We do not send your in/outputs to
-            our servers. 😎
+            Everything runs in your browser. Unless otherwise specified, we do
+            not send your in/outputs to our servers. 😎
           </p>
         </div>
       </v-flex>
